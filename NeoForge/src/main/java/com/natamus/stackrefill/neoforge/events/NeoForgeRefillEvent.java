@@ -5,14 +5,13 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.event.TickEvent;
-import net.neoforged.neoforge.event.TickEvent.Phase;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.item.ItemTossEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerDestroyItemEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.tick.ServerTickEvent;
 
 import java.util.HashMap;
 
@@ -21,11 +20,7 @@ public class NeoForgeRefillEvent {
 	private static final HashMap<String, InteractionHand> lasthandused = new HashMap<String, InteractionHand>();
 
 	@SubscribeEvent
-	public static void onWorldTick(TickEvent.ServerTickEvent e) {
-		if (!e.phase.equals(Phase.START)) {
-			return;
-		}
-
+	public static void onWorldTick(ServerTickEvent.Pre e) {
 		RefillEvent.processTick(false);
 	}
 
