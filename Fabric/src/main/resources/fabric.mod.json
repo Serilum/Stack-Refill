@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "stackrefill",
-  "version": "4.3",
+  "version": "4.4",
 
   "name": "Stack Refill",
   "description": "A quality of life mod which automatically refills the item in the hand of the player when using the final item if possible.",
@@ -23,7 +23,7 @@
     "fabric": "*",
     "minecraft": ">=1.20",
     "java": ">=21",
-    "collective": ">=7.54"
+    "collective": ">=7.58"
   },
 
   "custom": {
@@ -49,7 +49,6 @@
 	  " Jack",
 	  " Jeremy Langford",
 	  " Michael W. S.",
-	  " pepe1191",
 	  " Shana Gitnick",
 	  " Tyler Behl"
   ]
