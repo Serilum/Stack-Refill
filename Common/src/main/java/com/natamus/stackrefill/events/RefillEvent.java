@@ -15,6 +15,7 @@ import net.minecraft.world.phys.BlockHitResult;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class RefillEvent {
 	private static final List<Pair<Player, ItemStack>> addstack = new ArrayList<Pair<Player, ItemStack>>();
@@ -141,7 +142,7 @@ public class RefillEvent {
 				checkitemused.remove(0);
 			}
 		}
-		catch(IndexOutOfBoundsException ignored) {}
+		catch(IndexOutOfBoundsException | NoSuchElementException ignored) {}
 	}
 	
 	public static ItemStack onItemUse(Player player, ItemStack used, ItemStack newItem, InteractionHand hand) {
@@ -284,6 +285,10 @@ public class RefillEvent {
 
 		Pair<Player, ItemStack> insidepair = new Pair<Player, ItemStack>(player, active.copy());
 		Pair<InteractionHand, Pair<Player, ItemStack>> pair = new Pair<InteractionHand, Pair<Player, ItemStack>>(activehand, insidepair);
-		checkitemused.add(pair);
+
+		try {
+			checkitemused.add(pair);
+		}
+		catch (ArrayIndexOutOfBoundsException ignored) {}
 	}
 }

@@ -1,9 +1,8 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "com.natamus.stackrefill.forge.mixin",
+  "package": "com.natamus.stackrefill.mixin",
   "compatibilityLevel": "JAVA_17",
-  "refmap": "stackrefill_forge.refmap.json",
   "mixins": [
 
   ],
