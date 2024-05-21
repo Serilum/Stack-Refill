@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "stackrefill",
-  "version": "4.2",
+  "version": "4.4",
 
   "name": "Stack Refill",
   "description": "A quality of life mod which automatically refills the item in the hand of the player when using the final item if possible.",
@@ -23,7 +23,7 @@
     "fabric": "*",
     "minecraft": ">=1.20",
     "java": ">=17",
-    "collective": ">=7.21"
+    "collective": ">=7.57"
   },
 
   "custom": {
@@ -38,21 +38,18 @@
 	  " ",
 	  "Thank you very much to my Membership sponsors for supporting the development of this mod!",
 	  " ",
-	  "If you would like to contribute too, check out https://ricksouth.com/donate.",
+	  "If you would like to contribute too, check out https://serilum.com/donate.",
 	  " ",
 	  "Membership sponsors:",
-	  " Adam E",
 	  " Alister",
+	  " Andrean Olgo",
 	  " aternosorg",
+	  " BirdieMiner",
 	  " Cherriesaurus",
-	  " FireStriker",
-	  " Greg Johnson",
-	  " Kreezxil",
+	  " Jack",
+	  " Jeremy Langford",
 	  " Michael W. S.",
-	  " Mir3JonCZ",
-	  " Rebecca Hb.",
 	  " Shana Gitnick",
-	  " silver Bowsman",
 	  " Tyler Behl"
   ]
 }

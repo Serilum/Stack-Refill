@@ -10,8 +10,8 @@ base {
 }
 
 mixin { // mixin
-    add sourceSets.main, "stackrefill_forge.refmap.json" // mixin
-    config 'stackrefill_forge.mixins.json' // mixin
+    add sourceSets.main, "stackrefill.refmap.json" // mixin
+    config 'stackrefill.mixins.json' // mixin
     
     debug.verbose = true // mixin
     debug.export = true // mixin
@@ -33,7 +33,7 @@ minecraft {
     runs {
         client {
             workingDirectory project.file('run')
-            arg "-mixin.config=stackrefill_forge.mixins.json" // mixin
+            arg "-mixin.config=stackrefill.mixins.json" // mixin
 
             ideaModule "${rootProject.name}.${project.name}.main"
             taskName 'Client'
@@ -49,7 +49,7 @@ minecraft {
 
         server {
             workingDirectory project.file('run')
-            arg "-mixin.config=stackrefill_forge.mixins.json" // mixin
+            arg "-mixin.config=stackrefill.mixins.json" // mixin
 
             ideaModule "${rootProject.name}.${project.name}.main"
             taskName 'Server'
@@ -65,7 +65,7 @@ minecraft {
 
         data {
             workingDirectory project.file('run')
-            arg "-mixin.config=stackrefill_forge.mixins.json" // mixin
+            arg "-mixin.config=stackrefill.mixins.json" // mixin
             
             ideaModule "${rootProject.name}.${project.name}.main"
             args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
