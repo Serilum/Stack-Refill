@@ -1,6 +1,7 @@
 package com.natamus.stackrefill;
 
 import com.natamus.collective.check.RegisterMod;
+import com.natamus.collective.check.ShouldLoadCheck;
 import com.natamus.stackrefill.neoforge.events.NeoForgeClientRefillEvent;
 import com.natamus.stackrefill.neoforge.events.NeoForgeRefillEvent;
 import com.natamus.stackrefill.util.Reference;
@@ -16,6 +17,10 @@ import net.neoforged.fml.loading.FMLEnvironment;
 public class ModNeoForge {
 	
 	public ModNeoForge(IEventBus modEventBus) {
+		if (!ShouldLoadCheck.shouldLoad(Reference.MOD_ID)) {
+			return;
+		}
+
 		modEventBus.addListener(this::loadComplete);
 
 		setGlobalConstants();
