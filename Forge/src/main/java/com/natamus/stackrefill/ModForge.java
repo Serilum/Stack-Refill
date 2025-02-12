@@ -31,10 +31,10 @@ public class ModForge {
 	}
 
 	private void loadComplete(final FMLLoadCompleteEvent event) {
-    	MinecraftForge.EVENT_BUS.register(new ForgeRefillEvent());
+    	MinecraftForge.EVENT_BUS.register(ForgeRefillEvent.class);
 
 		if (FMLEnvironment.dist.equals(Dist.CLIENT)) {
-			MinecraftForge.EVENT_BUS.register(new ForgeClientRefillEvent());
+			MinecraftForge.EVENT_BUS.register(ForgeClientRefillEvent.class);
 		}
 	}
 

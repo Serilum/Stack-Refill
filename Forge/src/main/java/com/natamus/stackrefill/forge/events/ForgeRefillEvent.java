@@ -13,16 +13,14 @@ import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.player.PlayerDestroyItemEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
 import java.util.HashMap;
 
-@EventBusSubscriber
 public class ForgeRefillEvent {
 	private static final HashMap<String, InteractionHand> lasthandused = new HashMap<String, InteractionHand>();
 
 	@SubscribeEvent
-	public void onWorldTick(TickEvent.ServerTickEvent e) {
+	public static void onWorldTick(TickEvent.ServerTickEvent e) {
 		if (!e.phase.equals(Phase.START)) {
 			return;
 		}
@@ -31,7 +29,7 @@ public class ForgeRefillEvent {
 	}
 
 	@SubscribeEvent
-	public void onItemUse(LivingEntityUseItemEvent.Start e) {
+	public static void onItemUse(LivingEntityUseItemEvent.Start e) {
 		Entity livingEntity = e.getEntity();
 		if (!(livingEntity instanceof Player)) {
 			return;
@@ -50,7 +48,7 @@ public class ForgeRefillEvent {
 	}
 
 	@SubscribeEvent
-	public void onItemUse(LivingEntityUseItemEvent.Finish e) {
+	public static void onItemUse(LivingEntityUseItemEvent.Finish e) {
 		Entity livingEntity = e.getEntity();
 		if (!(livingEntity instanceof Player)) {
 			return;
@@ -66,23 +64,23 @@ public class ForgeRefillEvent {
 	}
 	
 	@SubscribeEvent
-	public void onItemBreak(PlayerDestroyItemEvent e) {
+	public static void onItemBreak(PlayerDestroyItemEvent e) {
 		InteractionHand interactionHand = e.getSlot().equals(EquipmentSlot.MAINHAND) ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND;
 		RefillEvent.onItemBreak(e.getEntity(), e.getOriginal(), interactionHand);
 	}
 	
 	@SubscribeEvent
-	public void onItemToss(ItemTossEvent e) {
+	public static void onItemToss(ItemTossEvent e) {
 		RefillEvent.onItemToss(e.getPlayer(), e.getEntity().getItem());
 	}
 	
 	@SubscribeEvent
-	public void onItemRightClick(PlayerInteractEvent.RightClickItem e) {
+	public static void onItemRightClick(PlayerInteractEvent.RightClickItem e) {
 		RefillEvent.onItemRightClick(e.getEntity(), e.getLevel(), e.getHand());
 	}
 	
 	@SubscribeEvent
-	public void onBlockRightClick(PlayerInteractEvent.RightClickBlock e) {
+	public static void onBlockRightClick(PlayerInteractEvent.RightClickBlock e) {
 		RefillEvent.onBlockRightClick(e.getLevel(), e.getEntity(), e.getHand(), e.getPos(), e.getHitVec());
 	}
 }
