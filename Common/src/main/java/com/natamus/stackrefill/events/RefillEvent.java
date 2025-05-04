@@ -14,15 +14,16 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 public class RefillEvent {
-	private static final List<Pair<Player, ItemStack>> addstack = new ArrayList<Pair<Player, ItemStack>>();
-	private static final List<Pair<InteractionHand, Pair<Player, ItemStack>>> addsingle = new ArrayList<Pair<InteractionHand, Pair<Player, ItemStack>>>();
+	private static final List<Pair<Player, ItemStack>> addStackList = Collections.synchronizedList(new ArrayList<>());
+	private static final List<Pair<InteractionHand, Pair<Player, ItemStack>>> addSingleList = Collections.synchronizedList(new ArrayList<>());
 
-	private static final List<Pair<Player, InteractionHand>> checkfishingrod = new ArrayList<Pair<Player, InteractionHand>>();
-	private static final List<Pair<InteractionHand, Pair<Player, ItemStack>>> checkitemused = new ArrayList<Pair<InteractionHand, Pair<Player, ItemStack>>>();
+	private static final List<Pair<Player, InteractionHand>> checkFishingRodList = Collections.synchronizedList(new ArrayList<>());
+	private static final List<Pair<InteractionHand, Pair<Player, ItemStack>>> checkItemUsedList = Collections.synchronizedList(new ArrayList<>());
 
 	public static void onWorldTick(ServerLevel world) {
 		processTick(false);
@@ -30,72 +31,87 @@ public class RefillEvent {
 
 	public static void processTick(boolean isClientSide) {
 		try {
-			if (addstack.size() > 0) {
-				Pair<Player, ItemStack> pair = addstack.get(0);
+			if (!addStackList.isEmpty()) {
+				Pair<Player, ItemStack> pair = addStackList.get(0);
 				if (pair != null) {
 					Player player = pair.getFirst();
-					ItemStack togive = pair.getSecond();
+					ItemStack stackToGive = pair.getSecond();
 
-					ItemStack heldmainhand = player.getMainHandItem();
-					if (heldmainhand.isEmpty()) {
-						player.setItemInHand(InteractionHand.MAIN_HAND, togive);
-					} else {
-						ItemFunctions.giveOrDropItemStack(player, togive);
+					if (player.isAlive()) {
+						ItemStack heldmainhand = player.getMainHandItem();
+						if (heldmainhand.isEmpty()) {
+							player.setItemInHand(InteractionHand.MAIN_HAND, stackToGive);
+						} else {
+							ItemFunctions.giveOrDropItemStack(player, stackToGive);
+						}
+					}
+					else {
+						player.drop(stackToGive, false);
 					}
 
 					player.getInventory().setChanged();
 				}
-				addstack.remove(0);
+				addStackList.remove(0);
 			}
-			if (addsingle.size() > 0) {
-				Pair<InteractionHand, Pair<Player, ItemStack>> pair = addsingle.get(0);
+			if (!addSingleList.isEmpty()) {
+				Pair<InteractionHand, Pair<Player, ItemStack>> pair = addSingleList.get(0);
 				if (pair != null) {
 					Pair<Player, ItemStack> insidepair = pair.getSecond();
 
 					InteractionHand hand = pair.getFirst();
 					Player player = insidepair.getFirst();
-					ItemStack handstack = player.getItemInHand(hand).copy();
+					ItemStack stackToGive = insidepair.getSecond();
 
-					player.setItemInHand(hand, insidepair.getSecond());
+					if (player.isAlive()) {
+						ItemStack handstack = player.getItemInHand(hand).copy();
 
-					if (!handstack.isEmpty()) {
-						ItemFunctions.giveOrDropItemStack(player, handstack);
+						player.setItemInHand(hand, stackToGive);
+
+						if (!handstack.isEmpty()) {
+							ItemFunctions.giveOrDropItemStack(player, handstack);
+						}
+					}
+					else {
+						player.drop(stackToGive, false);
 					}
 
 					player.getInventory().setChanged();
 				}
-				addsingle.remove(0);
+				addSingleList.remove(0);
 			}
-			if (checkfishingrod.size() > 0) {
-				Pair<Player, InteractionHand> pair = checkfishingrod.get(0);
+			if (!checkFishingRodList.isEmpty()) {
+				Pair<Player, InteractionHand> pair = checkFishingRodList.get(0);
 				if (pair != null) {
 					Player player = pair.getFirst();
-					InteractionHand hand = pair.getSecond();
-					if (player.getItemInHand(hand).isEmpty()) {
-						Inventory inv = player.getInventory();
 
-						for (int i = 35; i > 8; i--) {
-							ItemStack slot = inv.getItem(i);
-							if (slot.getItem() instanceof FishingRodItem) {
-								player.setItemInHand(hand, slot.copy());
-								slot.setCount(0);
-								break;
+					if (player.isAlive()) {
+						InteractionHand hand = pair.getSecond();
+						if (player.getItemInHand(hand).isEmpty()) {
+							Inventory inv = player.getInventory();
+
+							for (int i = 35; i > 8; i--) {
+								ItemStack slot = inv.getItem(i);
+								if (slot.getItem() instanceof FishingRodItem) {
+									player.setItemInHand(hand, slot.copy());
+									slot.setCount(0);
+									break;
+								}
 							}
 						}
 					}
 
 					player.getInventory().setChanged();
 				}
-				checkfishingrod.remove(0);
+				checkFishingRodList.remove(0);
 			}
-			if (checkitemused.size() > 0) {
-				Pair<InteractionHand, Pair<Player, ItemStack>> pair = checkitemused.get(0);
+			if (!checkItemUsedList.isEmpty()) {
+				Pair<InteractionHand, Pair<Player, ItemStack>> pair = checkItemUsedList.get(0);
 				if (pair != null) {
 					Pair<Player, ItemStack> insidepair = pair.getSecond();
 
 					InteractionHand hand = pair.getFirst();
 					Player player = insidepair.getFirst();
-					if (!player.isUsingItem()) {
+					if (player.isAlive() && !player.isUsingItem()) {
 						ItemStack usedstack = insidepair.getSecond();
 						ItemStack handstack = player.getItemInHand(hand).copy();
 						if (!(usedstack.getItem().equals(handstack.getItem()) && usedstack.getCount() == handstack.getCount())) {
@@ -139,12 +155,12 @@ public class RefillEvent {
 						}
 					}
 				}
-				checkitemused.remove(0);
+				checkItemUsedList.remove(0);
 			}
 		}
 		catch(IndexOutOfBoundsException | NoSuchElementException ignored) {}
 	}
-	
+
 	public static ItemStack onItemUse(Player player, ItemStack used, ItemStack newItem, InteractionHand hand) {
 		if (player.isCreative()) {
 			return null;
@@ -155,12 +171,12 @@ public class RefillEvent {
 			return null;
 		}
 
-		Pair<Player, ItemStack> insidepair = new Pair<Player, ItemStack>(player, used.copy());
-		Pair<InteractionHand, Pair<Player, ItemStack>> pair = new Pair<InteractionHand, Pair<Player, ItemStack>>(hand, insidepair);
-		checkitemused.add(pair);
+		Pair<Player, ItemStack> insidepair = new Pair<>(player, used.copy());
+		Pair<InteractionHand, Pair<Player, ItemStack>> pair = new Pair<>(hand, insidepair);
+		checkItemUsedList.add(pair);
 		return null;
 	}
-	
+
 	public static void onItemBreak(Player player, ItemStack used, InteractionHand hand) {
 		if (player.isCreative()) {
 			return;
@@ -189,9 +205,9 @@ public class RefillEvent {
 			ItemStack slot = inv.getItem(i);
 			Item slotitem = slot.getItem();
 			if (useditem.equals(slotitem)) {
-				Pair<Player, ItemStack> insidepair = new Pair<Player, ItemStack>(player, slot.copy());
-				Pair<InteractionHand, Pair<Player, ItemStack>> pair = new Pair<InteractionHand, Pair<Player, ItemStack>>(hand, insidepair);
-				addsingle.add(pair);
+				Pair<Player, ItemStack> insidepair = new Pair<>(player, slot.copy());
+				Pair<InteractionHand, Pair<Player, ItemStack>> pair = new Pair<>(hand, insidepair);
+				addSingleList.add(pair);
 				slot.setCount(0);
 				break;
 			}
@@ -199,7 +215,7 @@ public class RefillEvent {
 
 		player.getInventory().setChanged();
 	}
-	
+
 	public static void onItemToss(Player player, ItemStack tossedstack) {
 		if (player.isCreative()) {
 			return;
@@ -237,7 +253,7 @@ public class RefillEvent {
 
 		player.getInventory().setChanged();
 	}
-	
+
 	public static InteractionResultHolder<ItemStack> onItemRightClick(Player player, Level world, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 		if (player.isCreative()) {
@@ -250,8 +266,8 @@ public class RefillEvent {
 			int maxdamage = stack.getMaxDamage();
 
 			if (maxdamage - damage < 5) {
-				Pair<Player, InteractionHand> toadd = new Pair<Player, InteractionHand>(player, hand);
-				checkfishingrod.add(toadd);
+				Pair<Player, InteractionHand> toadd = new Pair<>(player, hand);
+				checkFishingRodList.add(toadd);
 			}
 		}
 		else if (item instanceof EggItem || item instanceof SnowballItem || item instanceof FireworkRocketItem) {
@@ -259,14 +275,14 @@ public class RefillEvent {
 				return InteractionResultHolder.pass(stack);
 			}
 
-			Pair<Player, ItemStack> insidepair = new Pair<Player, ItemStack>(player, stack.copy());
-			Pair<InteractionHand, Pair<Player, ItemStack>> pair = new Pair<InteractionHand, Pair<Player, ItemStack>>(hand, insidepair);
-			checkitemused.add(pair);
+			Pair<Player, ItemStack> insidepair = new Pair<>(player, stack.copy());
+			Pair<InteractionHand, Pair<Player, ItemStack>> pair = new Pair<>(hand, insidepair);
+			checkItemUsedList.add(pair);
 		}
 
 		return InteractionResultHolder.pass(stack);
 	}
-	
+
 	public static void onBlockRightClick(Level world, Player player, InteractionHand activehand, BlockPos pos, BlockHitResult hitVec) {
 		if (player.isCreative()) {
 			return;
@@ -283,11 +299,11 @@ public class RefillEvent {
 			return;
 		}
 
-		Pair<Player, ItemStack> insidepair = new Pair<Player, ItemStack>(player, active.copy());
-		Pair<InteractionHand, Pair<Player, ItemStack>> pair = new Pair<InteractionHand, Pair<Player, ItemStack>>(activehand, insidepair);
+		Pair<Player, ItemStack> insidepair = new Pair<>(player, active.copy());
+		Pair<InteractionHand, Pair<Player, ItemStack>> pair = new Pair<>(activehand, insidepair);
 
 		try {
-			checkitemused.add(pair);
+			checkItemUsedList.add(pair);
 		}
 		catch (ArrayIndexOutOfBoundsException ignored) {}
 	}

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "stackrefill",
-  "version": "4.6",
+  "version": "4.7",
 
   "name": "Stack Refill",
   "description": "A quality of life mod which automatically refills the item in the hand of the player when using the final item if possible.",
@@ -23,7 +23,7 @@
     "fabric": "*",
     "minecraft": ">=1.20",
     "java": ">=17",
-    "collective": ">=7.91"
+    "collective": ">=8.3"
   },
 
   "custom": {
@@ -45,8 +45,6 @@
 	  " Andrean Olgo",
 	  " aternosorg",
 	  " Cherriesaurus",
-	  " David Sanchez",
-	  " drdog111",
 	  " Michael W. S.",
 	  " t128",
 	  " Tyler Behl",
