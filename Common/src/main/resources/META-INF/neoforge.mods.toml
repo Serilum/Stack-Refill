@@ -6,7 +6,7 @@ logoFile="icon.png"
 
 [[mods]]
 modId="stackrefill"
-version="4.8"
+version="4.9"
 displayName="Stack Refill"
 displayURL="https://serilum.com/mod/stack-refill"
 authors="Rick South"
