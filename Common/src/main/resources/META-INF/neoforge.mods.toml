@@ -14,7 +14,7 @@ description='''A quality of life mod which automatically refills the item in the
 '''
 credits='''Thank you very much to my Membership sponsors for supporting the development of this mod:  
 
-akanealw, Alister, Andrean Olgo, aternosorg, Cherriesaurus, MWS, t128, Tyler Behl, XAgent, ตัวตรึง พระนคร   
+Andrean Olgo, aternosorg, Cherriesaurus, Josh, Linda Jansen, Michelle Smith, MWS, Tyler Behl   
 
 If you would like to contribute too, check out https://serilum.com/donate. Appreciate it! <3   
 '''
@@ -22,14 +22,14 @@ If you would like to contribute too, check out https://serilum.com/donate. Appre
 [[dependencies.stackrefill]]
     modId="collective"
     type="required"
-    versionRange="[8.17,)"
+    versionRange="[8.29,)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.stackrefill]]
     modId="minecraft"
     type="required"
-    versionRange="[26.1.2]"
+    versionRange="[26.2]"
     ordering="NONE"
     side="BOTH"
 
