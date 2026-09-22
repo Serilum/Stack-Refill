@@ -5,6 +5,7 @@ import com.natamus.collective.functions.ItemFunctions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Prediction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Inventory;
@@ -43,7 +44,7 @@ public class RefillEvent {
 						}
 					}
 					else {
-						player.drop(stackToGive, false);
+						player.drop(stackToGive, false, Prediction.PREDICTED);
 					}
 
 					player.getInventory().setChanged();
@@ -69,7 +70,7 @@ public class RefillEvent {
 						}
 					}
 					else {
-						player.drop(stackToGive, false);
+						player.drop(stackToGive, false, Prediction.PREDICTED);
 					}
 
 					player.getInventory().setChanged();
