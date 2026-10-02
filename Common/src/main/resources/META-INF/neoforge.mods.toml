@@ -1,28 +1,28 @@
 modLoader="javafml"
 loaderVersion="*"
-license="All rights reserved"
+license="All Rights Reserved"
 issueTrackerURL="https://github.com/Serilum/.issue-tracker/labels/Mod:%20Stack%20Refill"
 iconFile="icon.png"
 
 [[mods]]
 modId="stackrefill"
-version="5.0"
+version="5.1"
 displayName="Stack Refill"
 displayURL="https://serilum.com/mod/stack-refill"
-authors="Rick South"
+authors="Serilum"
 description='''A quality of life mod which automatically refills the item in the hand of the player when using the final item if possible.
 '''
 credits='''Thank you very much to my Membership sponsors for supporting the development of this mod:  
 
 Andrean Olgo, AnyankaT, aternosorg, Cherriesaurus, Linda Jansen, MWS, Tyler Behl   
 
-If you would like to contribute too, check out https://serilum.com/donate. Appreciate it! <3   
+If you would like to contribute too, check out https://serilum.com/donate Appreciate it! <3   
 '''
 
 [[dependencies.stackrefill]]
     modId="collective"
     type="required"
-    versionRange="[8.39,)"
+    versionRange="[8.40,)"
     ordering="NONE"
     side="BOTH"
 

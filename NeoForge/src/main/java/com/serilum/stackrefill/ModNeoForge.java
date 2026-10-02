@@ -1,10 +1,10 @@
-package com.natamus.stackrefill;
+package com.serilum.stackrefill;
 
 import com.natamus.collective.check.RegisterMod;
 import com.natamus.collective.check.ShouldLoadCheck;
-import com.natamus.stackrefill.neoforge.events.NeoForgeClientRefillEvent;
-import com.natamus.stackrefill.neoforge.events.NeoForgeRefillEvent;
-import com.natamus.stackrefill.util.Reference;
+import com.serilum.stackrefill.neoforge.events.NeoForgeClientRefillEvent;
+import com.serilum.stackrefill.neoforge.events.NeoForgeRefillEvent;
+import com.serilum.stackrefill.util.Reference;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.bus.api.IEventBus;
