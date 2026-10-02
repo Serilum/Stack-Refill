@@ -1,6 +1,6 @@
-package com.natamus.stackrefill.forge.events;
+package com.serilum.stackrefill.forge.events;
 
-import com.natamus.stackrefill.events.RefillEvent;
+import com.serilum.stackrefill.events.RefillEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
 
@@ -11,8 +11,8 @@ public class ForgeClientRefillEvent {
 		TickEvent.ClientTickEvent.Pre.BUS.addListener(ForgeClientRefillEvent::onWorldTick);
 	}
 
-    @SubscribeEvent
-    public static void onWorldTick(TickEvent.ClientTickEvent.Pre e) {
-        RefillEvent.processTick(true);
-    }
+	@SubscribeEvent
+	public static void onWorldTick(TickEvent.ClientTickEvent.Pre e) {
+		RefillEvent.processTick(true);
+	}
 }
