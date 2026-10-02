@@ -1,6 +1,6 @@
-package com.natamus.stackrefill.forge.events;
+package com.serilum.stackrefill.forge.events;
 
-import com.natamus.stackrefill.events.RefillEvent;
+import com.serilum.stackrefill.events.RefillEvent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;

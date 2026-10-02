@@ -1,4 +1,4 @@
-package com.natamus.stackrefill.events;
+package com.serilum.stackrefill.events;
 
 import net.minecraft.client.Minecraft;
 

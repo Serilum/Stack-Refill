@@ -1,10 +1,10 @@
-package com.natamus.stackrefill;
+package com.serilum.stackrefill;
 
 import com.natamus.collective.check.RegisterMod;
 import com.natamus.collective.check.ShouldLoadCheck;
-import com.natamus.stackrefill.forge.events.ForgeClientRefillEvent;
-import com.natamus.stackrefill.forge.events.ForgeRefillEvent;
-import com.natamus.stackrefill.util.Reference;
+import com.serilum.stackrefill.forge.events.ForgeClientRefillEvent;
+import com.serilum.stackrefill.forge.events.ForgeRefillEvent;
+import com.serilum.stackrefill.util.Reference;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -31,7 +31,7 @@ public class ModForge {
 	}
 
 	private void loadComplete(final FMLLoadCompleteEvent event) {
-    	MinecraftForge.EVENT_BUS.register(ForgeRefillEvent.class);
+		MinecraftForge.EVENT_BUS.register(ForgeRefillEvent.class);
 
 		if (FMLEnvironment.dist.equals(Dist.CLIENT)) {
 			MinecraftForge.EVENT_BUS.register(ForgeClientRefillEvent.class);

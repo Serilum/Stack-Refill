@@ -1,8 +1,8 @@
-package com.natamus.stackrefill;
+package com.serilum.stackrefill;
 
-import com.natamus.stackrefill.events.ClientRefillEvent;
+import com.serilum.stackrefill.events.ClientRefillEvent;
 import net.fabricmc.api.ClientModInitializer;
-import com.natamus.stackrefill.util.Reference;
+import com.serilum.stackrefill.util.Reference;
 import com.natamus.collective.check.ShouldLoadCheck;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.Minecraft;
