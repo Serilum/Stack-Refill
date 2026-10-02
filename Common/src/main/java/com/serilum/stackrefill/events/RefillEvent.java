@@ -1,4 +1,4 @@
-package com.natamus.stackrefill.events;
+package com.serilum.stackrefill.events;
 
 import com.mojang.datafixers.util.Pair;
 import com.natamus.collective.functions.ItemFunctions;

@@ -1,11 +1,11 @@
-package com.natamus.stackrefill;
+package com.serilum.stackrefill;
 
 import com.natamus.collective.check.RegisterMod;
 import com.natamus.collective.check.ShouldLoadCheck;
 import com.natamus.collective.fabric.callbacks.CollectiveBlockEvents;
 import com.natamus.collective.fabric.callbacks.CollectiveItemEvents;
-import com.natamus.stackrefill.events.RefillEvent;
-import com.natamus.stackrefill.util.Reference;
+import com.serilum.stackrefill.events.RefillEvent;
+import com.serilum.stackrefill.util.Reference;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.player.UseItemCallback;

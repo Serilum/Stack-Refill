@@ -1,7 +1,6 @@
-package com.natamus.stackrefill.neoforge.events;
+package com.serilum.stackrefill.neoforge.events;
 
-import com.natamus.stackrefill.events.RefillEvent;
-import net.neoforged.api.distmarker.Dist;
+import com.serilum.stackrefill.events.RefillEvent;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 

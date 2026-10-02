@@ -1,24 +1,30 @@
-package com.natamus.stackrefill.neoforge.events;
+package com.serilum.stackrefill.forge.events;
 
-import com.natamus.stackrefill.events.RefillEvent;
+import com.serilum.stackrefill.events.RefillEvent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.neoforge.event.entity.item.ItemTossEvent;
-import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
-import net.neoforged.neoforge.event.entity.player.PlayerDestroyItemEvent;
-import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
-import net.neoforged.neoforge.event.tick.ServerTickEvent;
+import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.TickEvent.Phase;
+import net.minecraftforge.event.entity.item.ItemTossEvent;
+import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
+import net.minecraftforge.event.entity.player.PlayerDestroyItemEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import java.util.HashMap;
 
-public class NeoForgeRefillEvent {
+public class ForgeRefillEvent {
 	private static final HashMap<String, InteractionHand> lasthandused = new HashMap<String, InteractionHand>();
 
 	@SubscribeEvent
-	public static void onWorldTick(ServerTickEvent.Pre e) {
+	public static void onWorldTick(TickEvent.ServerTickEvent e) {
+		if (!e.phase.equals(Phase.START)) {
+			return;
+		}
+
 		RefillEvent.processTick(false);
 	}
 
@@ -59,7 +65,8 @@ public class NeoForgeRefillEvent {
 	
 	@SubscribeEvent
 	public static void onItemBreak(PlayerDestroyItemEvent e) {
-		RefillEvent.onItemBreak(e.getEntity(), e.getOriginal(), e.getHand());
+		InteractionHand interactionHand = e.getSlot().equals(EquipmentSlot.MAINHAND) ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND;
+		RefillEvent.onItemBreak(e.getEntity(), e.getOriginal(), interactionHand);
 	}
 	
 	@SubscribeEvent

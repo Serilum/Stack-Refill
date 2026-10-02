@@ -1,35 +1,35 @@
 {
   "schemaVersion": 1,
   "id": "stackrefill",
-  "version": "4.9",
+  "version": "5.1",
 
   "name": "Stack Refill",
   "description": "A quality of life mod which automatically refills the item in the hand of the player when using the final item if possible.",
-  "authors": [ "Rick South" ],
+  "authors": [ "Serilum" ],
   "contact": {
     "homepage": "https://serilum.com/mod/stack-refill",
     "sources": "https://github.com/Serilum/Stack-Refill",
     "issues": "https://github.com/Serilum/.issue-tracker/labels/Mod:%20Stack%20Refill"
   },
 
-  "license": "All Right Reserved",
+  "license": "All Rights Reserved",
   "icon": "icon.png",
 
   "environment": "*",
-  "entrypoints": { "main": [ "com.natamus.stackrefill.ModFabric" ], "client": [ "com.natamus.stackrefill.ModFabricClient" ] },
+  "entrypoints": { "main": [ "com.serilum.stackrefill.ModFabric" ], "client": [ "com.serilum.stackrefill.ModFabricClient" ] },
 
   "depends": {
     "fabricloader": ">=0.15.0",
     "fabric": "*",
     "minecraft": ">=1.21",
     "java": ">=21",
-    "collective": ">=8.3"
+    "collective": ">=8.40"
   },
 
   "custom": {
     "modmenu": {
       "links": {
-        "Donate <3" : "https://ricksouth.com/donate"
+        "Donate <3" : "https://serilum.com/donate"
       }
     }
   },
@@ -38,16 +38,15 @@
 	  " ",
 	  "Thank you very much to my Membership sponsors for supporting the development of this mod!",
 	  " ",
-	  "If you would like to contribute too, check out https://serilum.com/donate.",
+	  "If you would like to contribute too, check out https://serilum.com/donate",
 	  " ",
 	  "Membership sponsors:",
-	  " Alister",
 	  " Andrean Olgo",
+	  " AnyankaT",
 	  " aternosorg",
 	  " Cherriesaurus",
-	  " Michael W. S.",
-	  " t128",
-	  " Tyler Behl",
-	  " XAgent"
+	  " Linda Jansen",
+	  " MWS",
+	  " Tyler Behl"
   ]
 }
