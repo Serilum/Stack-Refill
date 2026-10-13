@@ -6,7 +6,7 @@ logoFile="icon.png"
 
 [[mods]]
 modId="stackrefill"
-version="5.1"
+version="6.0"
 displayName="Stack Refill"
 displayURL="https://serilum.com/mod/stack-refill"
 authors="Serilum"
@@ -14,7 +14,7 @@ description='''A quality of life mod which automatically refills the item in the
 '''
 credits='''Thank you very much to my Membership sponsors for supporting the development of this mod:  
 
-Andrean Olgo, AnyankaT, aternosorg, Cherriesaurus, Linda Jansen, MWS, Tyler Behl   
+AnyankaT, aternosorg, Cherriesaurus, Linda Jansen, MWS, Tyler Behl   
 
 If you would like to contribute too, check out https://serilum.com/donate Appreciate it! <3   
 '''
@@ -22,7 +22,7 @@ If you would like to contribute too, check out https://serilum.com/donate Apprec
 [[dependencies.stackrefill]]
     modId="collective"
     mandatory=true
-    versionRange="[8.40,)"
+    versionRange="[8.49,)"
     ordering="NONE"
     side="BOTH"
 

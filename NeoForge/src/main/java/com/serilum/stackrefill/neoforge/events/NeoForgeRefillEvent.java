@@ -1,11 +1,13 @@
 package com.serilum.stackrefill.neoforge.events;
 
+import com.serilum.stackrefill.cmds.CommandStackRefill;
 import com.serilum.stackrefill.events.RefillEvent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.neoforged.neoforge.event.entity.item.ItemTossEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerDestroyItemEvent;
@@ -18,8 +20,13 @@ public class NeoForgeRefillEvent {
 	private static final HashMap<String, InteractionHand> lasthandused = new HashMap<String, InteractionHand>();
 
 	@SubscribeEvent
-	public static void onWorldTick(ServerTickEvent.Pre e) {
-		RefillEvent.processTick(false);
+	public static void registerCommands(RegisterCommandsEvent e) {
+		CommandStackRefill.register(e.getDispatcher());
+	}
+
+	@SubscribeEvent
+	public static void onServerTick(ServerTickEvent.Pre e) {
+		RefillEvent.onServerTick(e.getServer());
 	}
 
 	@SubscribeEvent
