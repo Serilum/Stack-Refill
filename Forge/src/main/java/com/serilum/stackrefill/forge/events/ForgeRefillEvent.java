@@ -1,11 +1,13 @@
 package com.serilum.stackrefill.forge.events;
 
+import com.serilum.stackrefill.cmds.CommandStackRefill;
 import com.serilum.stackrefill.events.RefillEvent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
@@ -26,8 +28,13 @@ public class ForgeRefillEvent {
 	private static final HashMap<String, InteractionHand> lasthandused = new HashMap<String, InteractionHand>();
 
 	@SubscribeEvent
-	public static void onWorldTick(TickEvent.ServerTickEvent.Pre e) {
-		RefillEvent.processTick(false);
+	public static void registerCommands(RegisterCommandsEvent e) {
+		CommandStackRefill.register(e.getDispatcher());
+	}
+
+	@SubscribeEvent
+	public static void onServerTick(TickEvent.ServerTickEvent.Pre e) {
+		RefillEvent.onServerTick(e.server());
 	}
 
 	@SubscribeEvent
