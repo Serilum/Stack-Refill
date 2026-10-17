@@ -1,5 +1,6 @@
 package com.serilum.stackrefill.util;
 
+import com.natamus.collective.functions.ConfigFunctions;
 import com.serilum.stackrefill.config.ConfigHandler;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -8,9 +9,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-import java.util.Locale;
 import java.util.Objects;
-import java.util.regex.Pattern;
 
 public class Util {
 	private static final String REFILL_DISABLED_TAG = Reference.MOD_ID + ".disabled";
@@ -58,12 +57,12 @@ public class Util {
 			return false;
 		}
 
-		if (isInItemList(ConfigHandler.itemBlacklist, itemId)) {
+		if (ConfigFunctions.isInIdList(ConfigHandler.itemBlacklist, itemId)) {
 			return false;
 		}
 
 		if (!ConfigHandler.itemWhitelist.isBlank()) {
-			return isInItemList(ConfigHandler.itemWhitelist, itemId);
+			return ConfigFunctions.isInIdList(ConfigHandler.itemWhitelist, itemId);
 		}
 		return true;
 	}
@@ -73,30 +72,5 @@ public class Util {
 			return false;
 		}
 		return Objects.equals(usedStack.get(DataComponents.POTION_CONTENTS), candidateStack.get(DataComponents.POTION_CONTENTS));
-	}
-
-	private static boolean isInItemList(String itemList, String itemId) {
-		String itemPath = itemId.substring(itemId.indexOf(':') + 1);
-
-		for (String rawEntry : itemList.split(",")) {
-			String entry = rawEntry.strip().toLowerCase(Locale.ROOT);
-			if (entry.isEmpty()) {
-				continue;
-			}
-
-			String comparedId = itemPath;
-			if (entry.contains(":")) {
-				comparedId = itemId;
-			}
-
-			if (comparedId.matches(wildcardToRegex(entry))) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	private static String wildcardToRegex(String entry) {
-		return Pattern.quote(entry).replace("*", "\\E.*\\Q");
 	}
 }
