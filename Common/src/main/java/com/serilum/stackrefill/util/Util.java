@@ -1,5 +1,6 @@
 package com.serilum.stackrefill.util;
 
+import com.natamus.collective.functions.ConfigFunctions;
 import com.serilum.stackrefill.config.ConfigHandler;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
@@ -9,9 +10,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.PotionUtils;
 
-import java.util.Locale;
 import java.util.Optional;
-import java.util.regex.Pattern;
 
 public class Util {
 	private static final String REFILL_DISABLED_TAG = Reference.MOD_ID + ".disabled";
@@ -64,12 +63,12 @@ public class Util {
 			return false;
 		}
 
-		if (isInItemList(ConfigHandler.itemBlacklist, itemId)) {
+		if (ConfigFunctions.isInIdList(ConfigHandler.itemBlacklist, itemId)) {
 			return false;
 		}
 
 		if (!ConfigHandler.itemWhitelist.isBlank()) {
-			return isInItemList(ConfigHandler.itemWhitelist, itemId);
+			return ConfigFunctions.isInIdList(ConfigHandler.itemWhitelist, itemId);
 		}
 		return true;
 	}
@@ -79,30 +78,5 @@ public class Util {
 			return false;
 		}
 		return PotionUtils.getPotion(usedStack).equals(PotionUtils.getPotion(candidateStack));
-	}
-
-	private static boolean isInItemList(String itemList, String itemId) {
-		String itemPath = itemId.substring(itemId.indexOf(':') + 1);
-
-		for (String rawEntry : itemList.split(",")) {
-			String entry = rawEntry.strip().toLowerCase(Locale.ROOT);
-			if (entry.isEmpty()) {
-				continue;
-			}
-
-			String comparedId = itemPath;
-			if (entry.contains(":")) {
-				comparedId = itemId;
-			}
-
-			if (comparedId.matches(wildcardToRegex(entry))) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	private static String wildcardToRegex(String entry) {
-		return Pattern.quote(entry).replace("*", "\\E.*\\Q");
 	}
 }

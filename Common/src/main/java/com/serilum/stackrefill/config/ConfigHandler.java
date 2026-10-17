@@ -15,8 +15,8 @@ public class ConfigHandler extends DuskConfig {
 	@Entry public static boolean refillAfterDroppingLastItem = true;
 	@Entry public static boolean refillBuckets = true;
 	@Entry public static boolean refillFromOtherHotbarSlots = false;
-	@Entry public static String itemBlacklist = "";
-	@Entry public static String itemWhitelist = "";
+	@Entry(registry = "item") public static String itemBlacklist = "";
+	@Entry(registry = "item") public static String itemWhitelist = "";
 
 	public static void initConfig() {
 		configMetaData.put("refillBlocksAndItems", Arrays.asList(

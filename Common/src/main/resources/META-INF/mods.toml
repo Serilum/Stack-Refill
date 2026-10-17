@@ -6,7 +6,7 @@ logoFile="icon.png"
 
 [[mods]]
 modId="stackrefill"
-version="6.0"
+version="6.1"
 displayName="Stack Refill"
 displayURL="https://serilum.com/mod/stack-refill"
 authors="Serilum"
@@ -23,7 +23,7 @@ If you would like to contribute too, check out https://serilum.com/donate Apprec
     modId="collective"
     type="required"
     mandatory=true
-    versionRange="[8.49,)"
+    versionRange="[8.57,)"
     ordering="NONE"
     side="BOTH"
 
