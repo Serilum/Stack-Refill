@@ -82,6 +82,7 @@ public class RefillEvent {
 		}
 
 		inventory.setChanged();
+		player.containerMenu.sendAllDataToRemote();
 	}
 
 	private static int findRefillSlot(Player player, ItemStack usedStack) {
