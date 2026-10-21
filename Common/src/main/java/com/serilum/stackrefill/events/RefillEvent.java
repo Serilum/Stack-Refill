@@ -82,6 +82,8 @@ public class RefillEvent {
 		}
 
 		inventory.setChanged();
+		// Resync the menu: the client predicted the use (e.g. bed placement) and may otherwise show a ghost/empty slot.
+		player.containerMenu.sendAllDataToRemote();
 	}
 
 	private static int findRefillSlot(Player player, ItemStack usedStack) {
